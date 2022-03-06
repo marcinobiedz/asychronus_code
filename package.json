@@ -1,0 +1,19 @@
+{
+  "name": "asychronus_code",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "tsc --watch",
+    "serve": "serve public"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@types/node": "14",
+    "@tsconfig/node14": "1.0.1",
+    "typescript": "4.6.2",
+    "tslib": "2.3.1",
+    "serve": "13.0.2"
+  }
+}
