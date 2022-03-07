@@ -2,29 +2,29 @@
 function fetchAndDecode(url: string, type: string) {
     // Returning the top level promise, so the result of the entire chain is returned out of the function
     return fetch(url).then((response): any => {
-      // Depending on what type of file is being fetched, use the relevant function to decode its contents
-      if(!response.ok) {
-        throw new Error(`HTTP error! status: ${response.status}`);
-      } else {
-        if(type === 'blob') {
-          return response.blob();
-        } else if(type === 'text') {
-          return response.text();
+        // Depending on what type of file is being fetched, use the relevant function to decode its contents
+        if (!response.ok) {
+            throw new Error(`HTTP error! status: ${response.status}`);
+        } else {
+            if (type === 'blob') {
+                return response.blob();
+            } else if (type === 'text') {
+                return response.text();
+            }
         }
-      }
     })
-    .catch(e => {
-      console.log(`There has been a problem with your fetch operation for resource "${url}": ` + e.message);
-    });
-  }
+        .catch(e => {
+            console.log(`There has been a problem with your fetch operation for resource "${url}": ` + e.message);
+        })
+}
 
-  // Call the fetchAndDecode() method to fetch the images and the text, and store their promises in variables
-  let coffee = fetchAndDecode('coffee.jpg', 'blob');
-  let tea = fetchAndDecode('tea.jpg', 'blob');
-  let description = fetchAndDecode('description.txt', 'text');
+// Call the fetchAndDecode() method to fetch the images and the text, and store their promises in variables
+let coffee = fetchAndDecode('coffee.jpg', 'blob');
+let tea = fetchAndDecode('tea.jpg', 'blob');
+let description = fetchAndDecode('description.txt', 'text');
 
-  // Use Promise.all() to run code only when all three function calls have resolved
-  Promise.all([coffee, tea, description]).then(values => {
+// Use Promise.all() to run code only when all three function calls have resolved
+Promise.all([coffee, tea, description]).then(values => {
     console.log(values);
     // Store each value returned from the promises in separate variables; create object URLs from the blobs
     let objectURL1 = URL.createObjectURL(values[0]);
@@ -43,4 +43,4 @@ function fetchAndDecode(url: string, type: string) {
     let para = document.createElement('p');
     para.textContent = descText;
     document.body.appendChild(para);
-  });
+}).finally(() => alert("Done"));
