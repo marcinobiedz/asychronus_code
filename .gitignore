@@ -1,4 +1,4 @@
 node_modules
 yarn.lock
-!public/index.html
-public/*
+public/index.js
+public/worker.js
