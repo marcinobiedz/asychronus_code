@@ -19,9 +19,8 @@ function timeoutPromiseResolve(interval: number) {
     const timeoutPromiseReject2 = timeoutPromiseReject(2000);
     const timeoutPromiseResolve3 = timeoutPromiseResolve(3000);
   
-    await timeoutPromiseResolve1;
-    await timeoutPromiseReject2;
-    await timeoutPromiseResolve3;
+    const results = await Promise.all([timeoutPromiseResolve1, timeoutPromiseReject2, timeoutPromiseResolve3]);
+    return results;
   }
   
   let startTime = Date.now();
