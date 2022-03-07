@@ -1,19 +1,32 @@
-async function myFetch() {
-    try {
-      let response = await fetch('coffee.jpg');
-
-      if (!response.ok) {
-        throw new Error(`HTTP error! status: ${response.status}`);
-      } else {
-        let myBlob = await response.blob();
-        let objectURL = URL.createObjectURL(myBlob);
-        let image = document.createElement('img');
-        image.src = objectURL;
-        document.body.appendChild(image);
-      }
-    } catch(e) {
-      console.log(e);
-    }
+function timeoutPromiseResolve(interval: number) {
+    return new Promise((resolve, reject) => {
+      setTimeout(function(){
+        resolve("successful");
+      }, interval);
+    });
+  };
+  
+  function timeoutPromiseReject(interval: number) {
+    return new Promise((resolve, reject) => {
+      setTimeout(function(){
+        reject("error");
+      }, interval);
+    });
+  };
+  
+  async function timeTest() {
+    await timeoutPromiseResolve(5000);
+    await timeoutPromiseReject(2000);
+    await timeoutPromiseResolve(3000);
   }
-
-  myFetch();
+  
+  let startTime = Date.now();
+  
+  timeTest()
+    .then(() => {})
+    .catch(e => {
+      console.log(e);
+      let finishTime = Date.now();
+      let timeTaken = finishTime - startTime;
+      alert("Time taken in milliseconds: " + timeTaken);
+    })
