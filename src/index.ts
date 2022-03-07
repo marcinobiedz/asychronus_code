@@ -15,9 +15,13 @@ function timeoutPromiseResolve(interval: number) {
   };
   
   async function timeTest() {
-    await timeoutPromiseResolve(5000);
-    await timeoutPromiseReject(2000);
-    await timeoutPromiseResolve(3000);
+    const timeoutPromiseResolve1 = timeoutPromiseResolve(5000);
+    const timeoutPromiseReject2 = timeoutPromiseReject(2000);
+    const timeoutPromiseResolve3 = timeoutPromiseResolve(3000);
+  
+    await timeoutPromiseResolve1;
+    await timeoutPromiseReject2;
+    await timeoutPromiseResolve3;
   }
   
   let startTime = Date.now();
