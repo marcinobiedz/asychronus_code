@@ -1,21 +1,16 @@
-function loadAsset(url: string, type: XMLHttpRequestResponseType, callback: (arg: any) => void) {
-    let xhr = new XMLHttpRequest();
-    xhr.open('GET', url);
-    xhr.responseType = type;
+console.log ('Starting');
+let image;
 
-    xhr.onload = function () {
-        callback(xhr.response);
-    };
+fetch('coffee.jpg').then((response) => {
+  console.log('It worked :)')
+  return response.blob();
+}).then((myBlob) => {
+  let objectURL = URL.createObjectURL(myBlob);
+  image = document.createElement('img');
+  image.src = objectURL;
+  document.body.appendChild(image);
+}).catch((error) => {
+  console.log('There has been a problem with your fetch operation: ' + error.message);
+});
 
-    xhr.send();
-}
-
-function displayImage(blob: Blob) {
-    let objectURL = URL.createObjectURL(blob);
-
-    let image = document.createElement('img');
-    image.src = objectURL;
-    document.body.appendChild(image);
-}
-
-loadAsset('coffee.jpg', 'blob', displayImage);
+console.log ('All done!');
